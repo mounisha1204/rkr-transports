@@ -1,0 +1,34 @@
+# ── Angular ──────────────────────────────────────────────
+frontend/node_modules/
+frontend/dist/
+frontend/.angular/cache/
+frontend/.sass-cache/
+frontend/coverage/
+frontend/*.log
+
+# ── Spring Boot ───────────────────────────────────────────
+backend/target/
+backend/*.log
+backend/.mvn/wrapper/maven-wrapper.jar
+
+# ── Secrets — NEVER commit these ─────────────────────────
+backend/src/main/resources/application-local.properties
+*.env
+.env
+
+# ── IDEs ─────────────────────────────────────────────────
+.idea/
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.iml
+.classpath
+.project
+.settings/
+*.sublime-workspace
+
+# ── OS ───────────────────────────────────────────────────
+.DS_Store
+Thumbs.db

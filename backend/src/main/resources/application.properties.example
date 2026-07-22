@@ -1,0 +1,53 @@
+# ── HOW TO USE ───────────────────────────────────────────────────────────────
+# Copy this file to application.properties and fill in your values for local dev.
+# On Render (production), set these as Environment Variables — do NOT commit
+# application.properties with real credentials.
+# ─────────────────────────────────────────────────────────────────────────────
+
+# ── Server ───────────────────────────────────────────────
+# Render injects PORT automatically. Defaults to 8080 locally.
+server.port=${PORT:8080}
+
+# ── MySQL Database ───────────────────────────────────────
+# DB_URL example (Render MySQL / PlanetScale / Aiven):
+#   jdbc:mysql://<host>:<port>/<dbname>?useSSL=true&serverTimezone=UTC&allowPublicKeyRetrieval=true
+spring.datasource.url=${DB_URL:jdbc:mysql://localhost:3306/rkr_transports?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true}
+spring.datasource.username=${DB_USERNAME:root}
+spring.datasource.password=${DB_PASSWORD:YOUR_MYSQL_PASSWORD}
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=false
+spring.jpa.open-in-view=false
+
+spring.datasource.hikari.connection-timeout=20000
+spring.datasource.hikari.maximum-pool-size=5
+spring.datasource.hikari.minimum-idle=2
+spring.datasource.hikari.idle-timeout=300000
+spring.datasource.hikari.max-lifetime=1200000
+
+# ── Gmail SMTP ───────────────────────────────────────────
+spring.mail.host=smtp.gmail.com
+spring.mail.port=587
+spring.mail.username=${MAIL_USERNAME:YOUR_GMAIL_ADDRESS}
+spring.mail.password=${MAIL_PASSWORD:YOUR_GMAIL_APP_PASSWORD}
+spring.mail.properties.mail.smtp.auth=true
+spring.mail.properties.mail.smtp.starttls.enable=true
+spring.mail.properties.mail.smtp.starttls.required=true
+spring.mail.properties.mail.smtp.connectiontimeout=10000
+spring.mail.properties.mail.smtp.timeout=10000
+spring.mail.properties.mail.smtp.writetimeout=10000
+
+# ── App Config ───────────────────────────────────────────
+app.company.email=${APP_COMPANY_EMAIL:rkrtransportslogistics@gmail.com}
+app.company.name=${APP_COMPANY_NAME:RK & R Transports and Logistics}
+
+# ── CORS ─────────────────────────────────────────────────
+# For multiple origins separate with comma:
+#   http://localhost:4200,https://your-frontend.onrender.com
+app.cors.allowed-origins=${CORS_ALLOWED_ORIGINS:http://localhost:4200}
+
+# ── Logging ──────────────────────────────────────────────
+logging.level.com.rkrtransports=INFO
+logging.level.org.springframework.mail=WARN
+logging.level.com.sun.mail=WARN

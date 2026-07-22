@@ -1,0 +1,191 @@
+<div class="booking-page">
+  <div class="booking-page__hero">
+    <div class="container">
+      <a routerLink="/" class="booking-page__back" aria-label="Back to Home">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M19 12H5M12 5l-7 7 7 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Back to Home
+      </a>
+      <div class="booking-page__hero-text">
+        <h1 class="booking-page__title">Book a Transport</h1>
+        <p class="booking-page__subtitle">Fill in the details below and our team will get back to you within 24 hours.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="booking-page__body">
+    <div class="container">
+      <div class="booking-layout">
+
+        <!-- Form -->
+        <div class="booking-form-wrap">
+          @if (!submitted()) {
+            <form id="enquiry-form" class="booking-form" (ngSubmit)="onSubmit()" #enquiryForm="ngForm" novalidate aria-label="Transport booking enquiry form">
+              <h2 class="booking-form__heading">Enquiry Details</h2>
+
+              <div class="form-row form-row--2">
+                <div class="form-group">
+                  <label for="name">Full Name <span class="req" aria-hidden="true">*</span></label>
+                  <input id="name" type="text" name="name" [(ngModel)]="form.name" (ngModelChange)="onFormChange()" required placeholder="Your full name" autocomplete="name" #nameField="ngModel" [class.invalid]="nameField.invalid && nameField.touched" [attr.aria-invalid]="nameField.invalid && nameField.touched">
+                  @if (nameField.invalid && nameField.touched) {
+                    <span class="form-error" role="alert">Full name is required.</span>
+                  }
+                </div>
+                <div class="form-group">
+                  <label for="email">Email Address <span class="req" aria-hidden="true">*</span></label>
+                  <input id="email" type="email" name="email" [(ngModel)]="form.email" (ngModelChange)="onFormChange()" required email placeholder="your@email.com" autocomplete="email" #emailField="ngModel" [class.invalid]="emailField.invalid && emailField.touched" [attr.aria-invalid]="emailField.invalid && emailField.touched">
+                  @if (emailField.invalid && emailField.touched) {
+                    <span class="form-error" role="alert">A valid email is required.</span>
+                  }
+                </div>
+              </div>
+
+              <div class="form-row form-row--2">
+                <div class="form-group">
+                  <label for="phone">Phone Number <span class="req" aria-hidden="true">*</span></label>
+                  <input id="phone" type="tel" name="phone" [(ngModel)]="form.phone" (ngModelChange)="onFormChange()" required placeholder="+61 412 345 678" autocomplete="tel" inputmode="tel" australianPhone #phoneField="ngModel" [class.invalid]="phoneField.invalid && phoneField.touched" [attr.aria-invalid]="phoneField.invalid && phoneField.touched">
+                  @if (phoneField.errors?.['required'] && phoneField.touched) {
+                    <span class="form-error" role="alert">Phone number is required.</span>
+                  } @else if (phoneField.errors?.['australianPhone'] && phoneField.touched) {
+                    <span class="form-error" role="alert">Please enter a valid Australian mobile number (e.g. +61 412 345 678 or 0412 345 678).</span>
+                  }
+                </div>
+                <div class="form-group">
+                  <label for="serviceType">Service Type <span class="req" aria-hidden="true">*</span></label>
+                  <select id="serviceType" name="serviceType" [(ngModel)]="form.serviceType" (ngModelChange)="onFormChange()" required #serviceField="ngModel" [class.invalid]="serviceField.invalid && serviceField.touched" [attr.aria-invalid]="serviceField.invalid && serviceField.touched">
+                    <option value="" disabled>Select a service</option>
+                    @for (s of services; track s) {
+                      <option [value]="s">{{ s }}</option>
+                    }
+                  </select>
+                  @if (serviceField.invalid && serviceField.touched) {
+                    <span class="form-error" role="alert">Please select a service type.</span>
+                  }
+                </div>
+              </div>
+
+              <div class="form-row form-row--2">
+                <div class="form-group">
+                  <label for="pickup">Pickup Address <span class="req" aria-hidden="true">*</span></label>
+                  <input id="pickup" type="text" name="pickupAddress" [(ngModel)]="form.pickupAddress" (ngModelChange)="onFormChange()" required placeholder="Street, Suburb, State" #pickupField="ngModel" [class.invalid]="pickupField.invalid && pickupField.touched" [attr.aria-invalid]="pickupField.invalid && pickupField.touched">
+                  @if (pickupField.invalid && pickupField.touched) {
+                    <span class="form-error" role="alert">Pickup address is required.</span>
+                  }
+                </div>
+                <div class="form-group">
+                  <label for="delivery">Delivery Address <span class="req" aria-hidden="true">*</span></label>
+                  <input id="delivery" type="text" name="deliveryAddress" [(ngModel)]="form.deliveryAddress" (ngModelChange)="onFormChange()" required placeholder="Street, Suburb, State" #deliveryField="ngModel" [class.invalid]="deliveryField.invalid && deliveryField.touched" [attr.aria-invalid]="deliveryField.invalid && deliveryField.touched">
+                  @if (deliveryField.invalid && deliveryField.touched) {
+                    <span class="form-error" role="alert">Delivery address is required.</span>
+                  }
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="date">Preferred Date</label>
+                <input id="date" type="date" name="preferredDate" [(ngModel)]="form.preferredDate" (ngModelChange)="onFormChange()" [min]="today">
+              </div>
+
+              <div class="form-group">
+                <label for="message">Additional Notes</label>
+                <textarea id="message" name="message" [(ngModel)]="form.message" (ngModelChange)="onFormChange()" rows="4" placeholder="Any special requirements, items to transport, or other details..."></textarea>
+              </div>
+
+              <div class="form-group form-group--checkbox">
+                <input id="privacyConsent" type="checkbox" name="privacyConsent" [(ngModel)]="form.privacyConsent" (ngModelChange)="onFormChange()" required #consentField="ngModel" [attr.aria-invalid]="consentField.invalid && consentField.touched">
+                <label for="privacyConsent">
+                  I have read and agree to the <a routerLink="/privacy-policy">Privacy Policy</a> and <a routerLink="/terms">Terms &amp; Conditions</a>. <span class="req" aria-hidden="true">*</span>
+                </label>
+              </div>
+              @if (consentField.invalid && consentField.touched) {
+                <span class="form-error" role="alert">You must agree to the Privacy Policy and Terms to proceed.</span>
+              }
+
+              @if (errorMessage()) {
+                <div class="form-api-error" role="alert">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/><path d="M12 8v4M12 16h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                  {{ errorMessage() }}
+                </div>
+              }
+
+              <button type="submit" class="btn-primary booking-form__submit" [disabled]="enquiryForm.invalid || loading()" [attr.aria-disabled]="enquiryForm.invalid || loading()">
+                @if (loading()) {
+                  <span class="btn-spinner" aria-hidden="true"></span>
+                  Submitting your enquiry...
+                } @else {
+                  Submit Enquiry
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                }
+              </button>
+            </form>
+          } @else {
+            <div class="booking-success" role="alert" aria-live="polite">
+              <div class="booking-success__icon" aria-hidden="true">
+                <svg width="56" height="56" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" fill="#1a2b5f"/><path d="M8 12l3 3 5-5" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <h2>Enquiry Submitted!</h2>
+              <p>Thank you for your transport enquiry. Our team will contact you within 24 hours to confirm your booking details.</p>
+              <div class="booking-success__actions">
+                <button class="btn-primary" (click)="resetForm()">Submit Another Enquiry</button>
+                <a routerLink="/" class="btn-outline">Back to Home</a>
+              </div>
+            </div>
+          }
+        </div>
+
+        <!-- Info Sidebar -->
+        <aside class="booking-sidebar" aria-label="Why choose us">
+          <div class="booking-sidebar__card">
+            <h3>Why Choose RK &amp; R Transports and Logistics?</h3>
+            <ul class="booking-sidebar__list" role="list">
+              <li>
+                <span class="check" aria-hidden="true">✔</span>
+                <div>
+                  <strong>Tasmania Wide Coverage</strong>
+                  <span>We service all regions across Tasmania.</span>
+                </div>
+              </li>
+              <li>
+                <span class="check" aria-hidden="true">✔</span>
+                <div>
+                  <strong>Fast Response</strong>
+                  <span>We'll reply to your enquiry within 24 hours.</span>
+                </div>
+              </li>
+              <li>
+                <span class="check" aria-hidden="true">✔</span>
+                <div>
+                  <strong>No Hidden Fees</strong>
+                  <span>Transparent pricing with clear quotes upfront.</span>
+                </div>
+              </li>
+              <li>
+                <span class="check" aria-hidden="true">✔</span>
+                <div>
+                  <strong>Fully Insured</strong>
+                  <span>All transport jobs are fully insured for peace of mind.</span>
+                </div>
+              </li>
+              <li>
+                <span class="check" aria-hidden="true">✔</span>
+                <div>
+                  <strong>Professional Team</strong>
+                  <span>Experienced, licensed drivers and logistics staff.</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="booking-sidebar__contact">
+            <h3>Prefer to Call?</h3>
+            <p>Speak directly with our team during business hours.</p>
+            <a href="tel:+61451655415" class="booking-sidebar__phone" aria-label="Call us at +61 451 655 415">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1C10.61 21 3 13.39 3 4c0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.24 1.02l-2.21 2.2z" fill="currentColor"/></svg>
+              +61 451 655 415
+            </a>
+            <p class="booking-sidebar__hours">Mon – Fri: 9:00 AM – 5:00 PM</p>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </div>
+</div>

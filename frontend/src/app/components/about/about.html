@@ -1,0 +1,23 @@
+<section id="about" class="about" aria-labelledby="about-heading">
+  <div class="container">
+    <div class="about__header">
+      <h2 class="section-title" id="about-heading">About RK &amp; R Transports and Logistics</h2>
+      <p class="about__desc">
+        RK &amp; R Transports and Logistics provides reliable, affordable and professional transport solutions across Tasmania.
+        We specialise in home relocation, furniture transport and furniture assembly.
+        Our team ensures safe and timely delivery while maintaining exceptional customer service.
+      </p>
+    </div>
+
+    <div class="about__features" role="list" aria-label="Our key features">
+      @for (feature of features; track feature.title) {
+        <div class="feature-card" role="listitem">
+          <div class="feature-card__icon" aria-hidden="true">{{ feature.icon }}</div>
+          <div class="feature-card__check" aria-hidden="true">✔</div>
+          <h3 class="feature-card__title">{{ feature.title }}</h3>
+          <p class="feature-card__desc">{{ feature.desc }}</p>
+        </div>
+      }
+    </div>
+  </div>
+</section>

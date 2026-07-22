@@ -1,0 +1,22 @@
+# Maven build output
+target/
+
+# Sensitive configuration — never commit real credentials
+application.properties
+
+# Logs
+*.log
+backend-log.txt
+logs/
+
+# IDE files
+.idea/
+*.iml
+.vscode/
+*.classpath
+*.project
+.settings/
+
+# OS files
+.DS_Store
+Thumbs.db

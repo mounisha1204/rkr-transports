@@ -1,0 +1,99 @@
+<footer class="footer" role="contentinfo">
+  <div class="container footer__inner">
+    <!-- Brand -->
+    <div class="footer__brand">
+      <div class="footer__logo">
+        <img src="/logo.png" alt="RK & R Transports and Logistics" class="footer__logo-img" />
+        <div>
+          <div class="footer__logo-name">RK &amp; R Transports and Logistics</div>
+          <div class="footer__logo-tag">Logistics & Transport</div>
+        </div>
+      </div>
+      <p class="footer__tagline">Reliable, professional transport and logistics solutions across Tasmania. Your trusted local partner.</p>
+      <p class="footer__abn">ABN: 51 680 337 204</p>
+    </div>
+
+    <!-- Quick Links -->
+    <nav class="footer__links" aria-label="Footer navigation">
+      <h3 class="footer__links-title">Quick Links</h3>
+      <ul role="list">
+        <li>
+          <a (click)="navigateTo()" (keydown.enter)="navigateTo()" tabindex="0" class="footer__link">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            Home
+          </a>
+        </li>
+        <li>
+          <a (click)="navigateTo('about')" (keydown.enter)="navigateTo('about')" tabindex="0" class="footer__link">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            About
+          </a>
+        </li>
+        <li>
+          <a (click)="navigateTo('services')" (keydown.enter)="navigateTo('services')" tabindex="0" class="footer__link">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            Services
+          </a>
+        </li>
+        <li>
+          <a routerLink="/booking-enquiry" class="footer__link">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            Booking Enquiry
+          </a>
+        </li>
+        <li>
+          <a (click)="navigateTo('contact')" (keydown.enter)="navigateTo('contact')" tabindex="0" class="footer__link">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            Contact
+          </a>
+        </li>
+        <li>
+          <a routerLink="/privacy-policy" class="footer__link">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            Privacy Policy
+          </a>
+        </li>
+        <li>
+          <a routerLink="/terms" class="footer__link">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            Terms &amp; Conditions
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Contact Info -->
+    <div class="footer__contact" aria-label="Contact information">
+      <h3 class="footer__links-title">Contact</h3>
+      <ul role="list">
+        <li class="footer__contact-item">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 4H4C2.9 4 2 4.9 2 6v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" fill="currentColor"/></svg>
+          <a href="mailto:rkrtransportslogistics@gmail.com">rkrtransportslogistics&#64;gmail.com</a>
+        </li>
+        <li class="footer__contact-item">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1C10.61 21 3 13.39 3 4c0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.24 1.02l-2.21 2.2z" fill="currentColor"/></svg>
+          <a href="tel:+61451655415">+61 451 655 415</a>
+        </li>
+        <li class="footer__contact-item">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z" fill="currentColor"/></svg>
+          <span>Tasmania, Australia</span>
+        </li>
+        <li class="footer__contact-item">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2a10 10 0 100 20A10 10 0 0012 2zm1 14.93V17a1 1 0 00-2 0v-.07A8.001 8.001 0 014.07 11H5a1 1 0 000-2h-.93A8.001 8.001 0 0111 4.07V5a1 1 0 002 0v-.93A8.001 8.001 0 0119.93 11H19a1 1 0 000 2h.93A8.001 8.001 0 0113 16.93z" fill="currentColor"/></svg>
+          <span>Mon – Fri: 9:00 AM – 5:00 PM AEST</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer__bottom">
+    <div class="container footer__bottom-inner">
+      <p>© {{ year }} RK &amp; R Transports and Logistics ABN 51 680 337 204. All Rights Reserved.</p>
+      <div class="footer__legal-links">
+        <a routerLink="/privacy-policy">Privacy Policy</a>
+        <span aria-hidden="true">·</span>
+        <a routerLink="/terms">Terms &amp; Conditions</a>
+      </div>
+    </div>
+  </div>
+</footer>

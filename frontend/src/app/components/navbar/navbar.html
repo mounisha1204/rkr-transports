@@ -1,0 +1,54 @@
+<header class="navbar" [class.scrolled]="isScrolled()" role="banner">
+  <div class="container navbar__inner">
+
+    <!-- Logo -->
+    <a class="navbar__logo" (click)="navigateTo()" (keydown.enter)="navigateTo()" tabindex="0" aria-label="RK & R Transports and Logistics - Go to homepage">
+      <img src="/logo.png" alt="RK & R Transports and Logistics" class="navbar__logo-img" />
+      <span class="navbar__logo-name">RK &amp; R<small>Transports and Logistics</small></span>
+    </a>
+
+    <!-- Desktop Nav -->
+    <nav class="navbar__nav" aria-label="Main navigation">
+      <!-- Left links -->
+      <ul class="navbar__links navbar__links--left" role="list">
+        <li>
+          <a (click)="navigateTo()" (keydown.enter)="navigateTo()" tabindex="0" class="nav-link" aria-label="Go to Home">Home</a>
+        </li>
+        <li>
+          <a routerLink="/booking-enquiry" class="nav-link nav-link--cta" aria-label="Go to Booking Enquiry">Booking Enquiry</a>
+        </li>
+      </ul>
+
+      <!-- Right links -->
+      <ul class="navbar__links navbar__links--right" role="list">
+        <li>
+          <a (click)="navigateTo('about')" (keydown.enter)="navigateTo('about')" tabindex="0" class="nav-link" aria-label="Go to About Us section">About Us</a>
+        </li>
+        <li>
+          <a (click)="navigateTo('services')" (keydown.enter)="navigateTo('services')" tabindex="0" class="nav-link" aria-label="Go to Services section">Services</a>
+        </li>
+        <li>
+          <a (click)="navigateTo('contact')" (keydown.enter)="navigateTo('contact')" tabindex="0" class="nav-link" aria-label="Go to Contact section">Contact</a>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Hamburger -->
+    <button class="navbar__hamburger" [class.open]="menuOpen()" (click)="toggleMenu()" aria-label="Toggle navigation menu" [attr.aria-expanded]="menuOpen()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div class="navbar__mobile" [class.open]="menuOpen()" role="navigation" aria-label="Mobile navigation">
+    <ul role="list">
+      <li><a (click)="navigateTo()" (keydown.enter)="navigateTo()" tabindex="0" class="mobile-link">Home</a></li>
+      <li><a routerLink="/booking-enquiry" (click)="closeMenu()" class="mobile-link mobile-link--cta">Booking Enquiry</a></li>
+      <li><a (click)="navigateTo('about')" (keydown.enter)="navigateTo('about')" tabindex="0" class="mobile-link">About Us</a></li>
+      <li><a (click)="navigateTo('services')" (keydown.enter)="navigateTo('services')" tabindex="0" class="mobile-link">Services</a></li>
+      <li><a (click)="navigateTo('contact')" (keydown.enter)="navigateTo('contact')" tabindex="0" class="mobile-link">Contact</a></li>
+    </ul>
+  </div>
+</header>
