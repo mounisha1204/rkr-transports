@@ -20,3 +20,29 @@ logs/
 # OS files
 .DS_Store
 Thumbs.db
+
+
+# Dependencies
+node_modules/
+
+# Angular
+.angular/
+dist/
+
+# Java
+backend/target/
+
+# IDE
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# Environment files
+.env
+application.properties
+
+# OS files
+.DS_Store
+Thumbs.db
