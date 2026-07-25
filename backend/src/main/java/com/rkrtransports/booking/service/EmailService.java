@@ -38,7 +38,7 @@ public class EmailService {
         this.repository = repository;
     }
 
-    @Async
+    @Async("emailTaskExecutor")
     public void sendBookingEnquiryEmail(BookingEnquiryRequest request, String enquiryId) {
         log.info("[EMAIL] Starting email send for enquiry from: {}", request.getEmail());
         log.info("[EMAIL] Recipient: {}, From: {}", recipientEmail, fromEmail);
