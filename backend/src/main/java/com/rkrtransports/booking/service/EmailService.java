@@ -1,6 +1,7 @@
 package com.rkrtransports.booking.service;
 
 import com.rkrtransports.booking.dto.BookingEnquiryRequest;
+import com.rkrtransports.booking.repository.BookingEnquiryRepository;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import org.slf4j.Logger;
@@ -23,6 +24,7 @@ public class EmailService {
 
     private final JavaMailSender mailSender;
     private final TemplateEngine templateEngine;
+    private final BookingEnquiryRepository repository;
 
     @Value("${booking.recipient.email}")
     private String recipientEmail;
@@ -30,14 +32,16 @@ public class EmailService {
     @Value("${spring.mail.username}")
     private String fromEmail;
 
-    public EmailService(JavaMailSender mailSender, TemplateEngine templateEngine) {
+    public EmailService(JavaMailSender mailSender, TemplateEngine templateEngine, BookingEnquiryRepository repository) {
         this.mailSender = mailSender;
         this.templateEngine = templateEngine;
+        this.repository = repository;
     }
 
     @Async
-    public void sendBookingEnquiryEmail(BookingEnquiryRequest request) {
-        log.info("Sending booking enquiry email for: {}", request.getEmail());
+    public void sendBookingEnquiryEmail(BookingEnquiryRequest request, String enquiryId) {
+        log.info("[EMAIL] Starting email send for enquiry from: {}", request.getEmail());
+        log.info("[EMAIL] Recipient: {}, From: {}", recipientEmail, fromEmail);
         try {
             Context context = new Context();
             context.setVariable("fullName", request.getFullName());
@@ -50,6 +54,7 @@ public class EmailService {
             context.setVariable("message", request.getMessage() != null && !request.getMessage().isBlank() ? request.getMessage() : "None");
             context.setVariable("submittedAt", LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd MMM yyyy, hh:mm a")));
 
+            log.info("[EMAIL] Processing Thymeleaf template...");
             String htmlContent = templateEngine.process("booking-enquiry-email", context);
 
             MimeMessage mimeMessage = mailSender.createMimeMessage();
@@ -60,10 +65,60 @@ public class EmailService {
             helper.setSubject("New Booking Enquiry - RK & R Transports and Logistics");
             helper.setText(htmlContent, true);
 
+            log.info("[EMAIL] Connecting to SMTP and sending...");
             mailSender.send(mimeMessage);
-            log.info("Booking enquiry email sent successfully for: {}", request.getEmail());
-        } catch (MessagingException | RuntimeException e) {
-            log.error("Failed to send booking enquiry email for: {} — {}", request.getEmail(), e.getMessage(), e);
+            log.info("[EMAIL] Successfully sent to: {}", recipientEmail);
+
+            repository.findById(enquiryId).ifPresent(e -> {
+                e.setEmailSent(true);
+                repository.save(e);
+                log.info("[EMAIL] emailSent flag updated for enquiry id: {}", enquiryId);
+            });
+        } catch (MessagingException e) {
+            log.error("[EMAIL] MessagingException for {}: {}", request.getEmail(), e.getMessage(), e);
+        } catch (RuntimeException e) {
+            log.error("[EMAIL] RuntimeException (likely SMTP/network) for {}: {}", request.getEmail(), e.getMessage(), e);
+        }
+    }
+}
+
+    @Async
+    public boolean sendBookingEnquiryEmail(BookingEnquiryRequest request) {
+        log.info("[EMAIL] Starting email send for enquiry from: {}", request.getEmail());
+        log.info("[EMAIL] Recipient: {}, From: {}", recipientEmail, fromEmail);
+        try {
+            Context context = new Context();
+            context.setVariable("fullName", request.getFullName());
+            context.setVariable("email", request.getEmail());
+            context.setVariable("phone", request.getPhone() != null && !request.getPhone().isBlank() ? request.getPhone() : "Not provided");
+            context.setVariable("serviceType", request.getServiceType());
+            context.setVariable("pickupAddress", request.getPickupAddress());
+            context.setVariable("deliveryAddress", request.getDeliveryAddress());
+            context.setVariable("preferredDate", request.getPreferredDate() != null && !request.getPreferredDate().isBlank() ? request.getPreferredDate() : "Not specified");
+            context.setVariable("message", request.getMessage() != null && !request.getMessage().isBlank() ? request.getMessage() : "None");
+            context.setVariable("submittedAt", LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd MMM yyyy, hh:mm a")));
+
+            log.info("[EMAIL] Processing Thymeleaf template...");
+            String htmlContent = templateEngine.process("booking-enquiry-email", context);
+
+            MimeMessage mimeMessage = mailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
+            helper.setFrom(fromEmail);
+            helper.setTo(recipientEmail);
+            helper.setReplyTo(request.getEmail());
+            helper.setSubject("New Booking Enquiry - RK & R Transports and Logistics");
+            helper.setText(htmlContent, true);
+
+            log.info("[EMAIL] Connecting to SMTP and sending...");
+            mailSender.send(mimeMessage);
+            log.info("[EMAIL] Successfully sent to: {}", recipientEmail);
+            return true;
+        } catch (MessagingException e) {
+            log.error("[EMAIL] MessagingException for {}: {}", request.getEmail(), e.getMessage(), e);
+            return false;
+        } catch (RuntimeException e) {
+            log.error("[EMAIL] RuntimeException (likely SMTP/network) for {}: {}", request.getEmail(), e.getMessage(), e);
+            return false;
         }
     }
 }

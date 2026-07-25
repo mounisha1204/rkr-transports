@@ -26,7 +26,7 @@ public class BookingEnquiryService {
         enquiry = repository.save(enquiry);
         log.info("Booking enquiry saved to MongoDB with id: {}", enquiry.getId());
 
-        emailService.sendBookingEnquiryEmail(request);
+        emailService.sendBookingEnquiryEmail(request, enquiry.getId());
     }
 
     private BookingEnquiry mapToEntity(BookingEnquiryRequest request) {
