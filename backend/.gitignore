@@ -1,6 +1,9 @@
 # Maven build output
 target/
 
+# Maven wrapper jar (scripts are committed, jar is downloaded at build time)
+.mvn/wrapper/maven-wrapper.jar
+
 # Sensitive configuration — never commit real credentials
 application.properties
 

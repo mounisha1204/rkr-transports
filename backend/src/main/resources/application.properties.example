@@ -1,23 +1,24 @@
-# ── HOW TO USE ───────────────────────────────────────────────────────────────
-# Copy this file to application.properties and fill in your values for local dev.
-# On Render (production), set these as Environment Variables — do NOT commit
-# application.properties with real credentials.
-# ─────────────────────────────────────────────────────────────────────────────
+# HOW TO USE
+# This file is a template. Never commit real credentials.
+# For local development, set these as environment variables in your terminal.
+# On Render, set them as Environment Variables in the Render dashboard.
 
-# ── Server ───────────────────────────────────────────────
+# Server
 # Render injects PORT automatically. Defaults to 8080 locally.
 server.port=${PORT:8080}
 
-# ── MongoDB ──────────────────────────────────────────────
-# Local:      mongodb://localhost:27017/rkr_transports
-# Atlas:      mongodb+srv://<user>:<password>@<cluster>.mongodb.net/rkr_transports?retryWrites=true&w=majority
-spring.data.mongodb.uri=${MONGODB_URI:mongodb://localhost:27017/rkr_transports}
+# MongoDB
+# Local:  export MONGODB_URI=mongodb://localhost:27017/rkr_transports
+# Atlas:  export MONGODB_URI=mongodb+srv://<user>:<password>@<cluster>.mongodb.net/rkr_transports?retryWrites=true&w=majority&appName=Cluster0
+spring.data.mongodb.uri=${MONGODB_URI}
 
-# ── Gmail SMTP ───────────────────────────────────────────
+# Gmail SMTP
+# export MAIL_USERNAME=your@gmail.com
+# export MAIL_PASSWORD=your_gmail_app_password
 spring.mail.host=smtp.gmail.com
 spring.mail.port=587
-spring.mail.username=${MAIL_USERNAME:YOUR_GMAIL_ADDRESS}
-spring.mail.password=${MAIL_PASSWORD:YOUR_GMAIL_APP_PASSWORD}
+spring.mail.username=${MAIL_USERNAME}
+spring.mail.password=${MAIL_PASSWORD}
 spring.mail.properties.mail.smtp.auth=true
 spring.mail.properties.mail.smtp.starttls.enable=true
 spring.mail.properties.mail.smtp.starttls.required=true
@@ -25,16 +26,17 @@ spring.mail.properties.mail.smtp.connectiontimeout=10000
 spring.mail.properties.mail.smtp.timeout=10000
 spring.mail.properties.mail.smtp.writetimeout=10000
 
-# ── App Config ───────────────────────────────────────────
-app.company.email=${APP_COMPANY_EMAIL:rkrtransportslogistics@gmail.com}
+# App Config
+# export APP_COMPANY_EMAIL=your@email.com
+app.company.email=${APP_COMPANY_EMAIL}
 app.company.name=${APP_COMPANY_NAME:RK & R Transports and Logistics}
 
-# ── CORS ─────────────────────────────────────────────────
-# For multiple origins separate with comma:
-#   http://localhost:4200,https://your-frontend.onrender.com
-app.cors.allowed-origins=${CORS_ALLOWED_ORIGINS:http://localhost:4200}
+# CORS
+# Local:   export CORS_ALLOWED_ORIGINS=http://localhost:4200
+# Render:  export CORS_ALLOWED_ORIGINS=https://your-frontend.onrender.com
+app.cors.allowed-origins=${CORS_ALLOWED_ORIGINS}
 
-# ── Logging ──────────────────────────────────────────────
+# Logging
 logging.level.com.rkrtransports=INFO
 logging.level.org.springframework.mail=WARN
-logging.level.com.sun.mail=WARNlogging.level.com.sun.mail=WARN
+logging.level.com.sun.mail=WARN

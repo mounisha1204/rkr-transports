@@ -26,14 +26,7 @@ public class BookingEnquiryService {
         enquiry = repository.save(enquiry);
         log.info("Booking enquiry saved to MongoDB with id: {}", enquiry.getId());
 
-        boolean emailSent = emailService.sendBookingEnquiryEmail(request);
-        if (emailSent) {
-            enquiry.setEmailSent(true);
-            repository.save(enquiry);
-            log.info("emailSent updated to true for enquiry id: {}", enquiry.getId());
-        } else {
-            log.warn("Email failed — emailSent remains false for enquiry id: {}", enquiry.getId());
-        }
+        emailService.sendBookingEnquiryEmail(request);
     }
 
     private BookingEnquiry mapToEntity(BookingEnquiryRequest request) {
