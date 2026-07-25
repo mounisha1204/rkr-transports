@@ -24,8 +24,8 @@ public class EmailService {
     private final JavaMailSender mailSender;
     private final TemplateEngine templateEngine;
 
-    @Value("${app.company.email}")
-    private String companyEmail;
+    @Value("${booking.recipient.email}")
+    private String recipientEmail;
 
     @Value("${spring.mail.username}")
     private String fromEmail;
@@ -55,7 +55,7 @@ public class EmailService {
             MimeMessage mimeMessage = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
             helper.setFrom(fromEmail);
-            helper.setTo(companyEmail);
+            helper.setTo(recipientEmail);
             helper.setReplyTo(request.getEmail());
             helper.setSubject("New Booking Enquiry - RK & R Transports and Logistics");
             helper.setText(htmlContent, true);
