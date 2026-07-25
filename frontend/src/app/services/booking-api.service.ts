@@ -22,7 +22,7 @@ export interface BookingPayload {
 @Injectable({ providedIn: 'root' })
 export class BookingApiService {
   private http = inject(HttpClient);
-  private apiUrl = 'http://localhost:8080/api/bookings/enquiry';
+  private apiUrl = 'https://rkr-transports.onrender.com/api/bookings/enquiry';
 
   submitEnquiry(form: BookingForm): Observable<ApiResponse> {
     const payload: BookingPayload = {
