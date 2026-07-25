@@ -1,7 +1,6 @@
 # ── Backend ──────────────────────────────────────────────
 backend/target/
 backend/backend-log.txt
-backend/src/main/resources/application.properties
 
 # ── Frontend ─────────────────────────────────────────────
 frontend/node_modules/
@@ -9,9 +8,10 @@ frontend/dist/
 frontend/.angular/
 
 # ── Environment / Secrets ────────────────────────────────
+# .env files contain real credentials and must never be committed
+# application.properties is safe to commit — all secrets come from env vars
 .env
 *.env
-application.properties
 
 # ── IDE ──────────────────────────────────────────────────
 .idea/

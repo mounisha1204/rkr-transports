@@ -5,7 +5,8 @@ target/
 .mvn/wrapper/maven-wrapper.jar
 
 # Sensitive configuration — never commit real credentials
-application.properties
+# application.properties is committed but contains NO secrets (all values come from env vars)
+# application-local.properties is gitignored for local overrides with real credentials
 
 # Logs
 *.log
@@ -44,7 +45,6 @@ backend/target/
 
 # Environment files
 .env
-application.properties
 
 # OS files
 .DS_Store
