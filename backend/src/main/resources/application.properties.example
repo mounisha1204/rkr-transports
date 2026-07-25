@@ -8,23 +8,10 @@
 # Render injects PORT automatically. Defaults to 8080 locally.
 server.port=${PORT:8080}
 
-# ── MySQL Database ───────────────────────────────────────
-# DB_URL example (Render MySQL / PlanetScale / Aiven):
-#   jdbc:mysql://<host>:<port>/<dbname>?useSSL=true&serverTimezone=UTC&allowPublicKeyRetrieval=true
-spring.datasource.url=${DB_URL:jdbc:mysql://localhost:3306/rkr_transports?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true}
-spring.datasource.username=${DB_USERNAME:root}
-spring.datasource.password=${DB_PASSWORD:YOUR_MYSQL_PASSWORD}
-spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
-
-spring.jpa.hibernate.ddl-auto=update
-spring.jpa.show-sql=false
-spring.jpa.open-in-view=false
-
-spring.datasource.hikari.connection-timeout=20000
-spring.datasource.hikari.maximum-pool-size=5
-spring.datasource.hikari.minimum-idle=2
-spring.datasource.hikari.idle-timeout=300000
-spring.datasource.hikari.max-lifetime=1200000
+# ── MongoDB ──────────────────────────────────────────────
+# Local:      mongodb://localhost:27017/rkr_transports
+# Atlas:      mongodb+srv://<user>:<password>@<cluster>.mongodb.net/rkr_transports?retryWrites=true&w=majority
+spring.data.mongodb.uri=${MONGODB_URI:mongodb://localhost:27017/rkr_transports}
 
 # ── Gmail SMTP ───────────────────────────────────────────
 spring.mail.host=smtp.gmail.com
@@ -50,4 +37,4 @@ app.cors.allowed-origins=${CORS_ALLOWED_ORIGINS:http://localhost:4200}
 # ── Logging ──────────────────────────────────────────────
 logging.level.com.rkrtransports=INFO
 logging.level.org.springframework.mail=WARN
-logging.level.com.sun.mail=WARN
+logging.level.com.sun.mail=WARNlogging.level.com.sun.mail=WARN

@@ -1,49 +1,32 @@
 package com.rkrtransports.booking.entity;
 
-import jakarta.persistence.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "booking_enquiries")
+@Document(collection = "booking_enquiries")
 public class BookingEnquiry {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
-    @Column(nullable = false)
     private String fullName;
-
-    @Column(nullable = false)
     private String email;
-
     private String phone;
-
-    @Column(nullable = false)
     private String serviceType;
-
-    @Column(nullable = false)
     private String pickupAddress;
-
-    @Column(nullable = false)
     private String deliveryAddress;
-
     private String preferredDate;
-
-    @Column(columnDefinition = "TEXT")
     private String message;
-
-    @Column(nullable = false)
     private LocalDateTime submittedAt;
-
     private boolean emailSent;
 
-    @PrePersist
-    protected void onCreate() {
+    public BookingEnquiry() {
         this.submittedAt = LocalDateTime.now();
     }
 
-    public Long getId() { return id; }
+    public String getId() { return id; }
 
     public String getFullName() { return fullName; }
     public void setFullName(String fullName) { this.fullName = fullName; }

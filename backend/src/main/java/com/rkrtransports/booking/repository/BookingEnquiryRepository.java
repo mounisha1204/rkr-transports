@@ -1,9 +1,9 @@
 package com.rkrtransports.booking.repository;
 
 import com.rkrtransports.booking.entity.BookingEnquiry;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface BookingEnquiryRepository extends JpaRepository<BookingEnquiry, Long> {
+public interface BookingEnquiryRepository extends MongoRepository<BookingEnquiry, String> {
 }

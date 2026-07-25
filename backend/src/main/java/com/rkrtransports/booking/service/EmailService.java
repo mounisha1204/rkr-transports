@@ -8,7 +8,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
@@ -35,8 +34,7 @@ public class EmailService {
         this.templateEngine = templateEngine;
     }
 
-    @Async
-    public void sendBookingEnquiryEmail(BookingEnquiryRequest request) {
+    public boolean sendBookingEnquiryEmail(BookingEnquiryRequest request) {
         log.info("Sending booking enquiry email for: {}", request.getEmail());
         try {
             Context context = new Context();
@@ -62,8 +60,10 @@ public class EmailService {
 
             mailSender.send(mimeMessage);
             log.info("Booking enquiry email sent successfully for: {}", request.getEmail());
+            return true;
         } catch (MessagingException | RuntimeException e) {
             log.error("Failed to send booking enquiry email for: {} — {}", request.getEmail(), e.getMessage(), e);
+            return false;
         }
     }
 }
